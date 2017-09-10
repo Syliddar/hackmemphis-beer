@@ -1,0 +1,134 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+          integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
+          crossorigin="anonymous">
+	<link href="css/custom.css" rel="stylesheet" />
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/moment.js"></script>
+    <script src="js/MOCK_DATA.json"></script>
+</head>
+<body>
+    <div class="container">
+        <h1 class="align-content-center text-center headline">beer.JMyers.tech</h1>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <canvas id="tempChart"></canvas>
+			<canvas id="sgChart"></canvas>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>
+    <script type="text/javascript">
+        $().ready(function() {
+			
+			var timeArr = [];
+			var sgArr = [];
+			var tempArr = [];
+			$.get('http://beer.jmyers.tech/api', function(data){
+				console.log(data);
+			});
+			for (var x in fakeData){
+					timeArr.push(fakeData[x].time);
+					sgArr.push(fakeData[x].sg);
+					tempArr.push(fakeData[x].temp);
+			}
+			var sgElement = document.getElementById("sgChart");
+            var sgChart = new Chart(sgElement, {
+                type: 'line',
+                data: {
+                    labels: timeArr,
+                    datasets: [
+                    {
+                        label: 'Specific Gravity',
+                        data: sgArr,
+                        backgroundColor: [
+                            'rgba(155, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255,99,132,1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+						xAxes: [{
+						type: 'time',
+							time: {
+								displayFormats: {
+									quarter: 'MMM D, hA'
+								}
+							}
+						}]
+					}
+				}
+            }); 
+			var tempElement = document.getElementById("tempChart");
+            var tempChart = new Chart(tempElement, {
+                type: 'line',
+                data: {
+                    labels: timeArr,
+                    datasets: [
+                    {
+                        label: 'Temperature',
+                        data: tempArr,
+                        backgroundColor: [
+                            'rgba(155, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255,99,132,1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+						yAxes: [{
+							ticks: {
+								min: 60,
+								max: 80
+								}
+						}],
+						xAxes: [{
+						type: 'time',
+							time: {
+								displayFormats: {
+									quarter: 'MMM D, hA'
+								}
+							}
+						}]
+					}
+				}
+            });        
+		});
+    </script>
+    </body>
+</html>
