@@ -12,11 +12,18 @@ secDelay = 60  # pause for network to spin up, usually 60
 delay = 600  # delay between updates
 beerName = 'test'
 batchId = 'TestBatch_01'
+postUrl = 'Enter Your URL Here'
 
 # BLE devices (like the tilt) work primarily using advertisements.
 # The first section of any advertisement is the universally unique identifier.
-# Tilt uses a particular identifier based on the colour of the device
-black = 'a495bb30c5b14b44b5121370f02d74de'
+# Tilt uses a particular identifier based on the colour of the deviceblack = 'a495bb30c5b14b44b5121370f02d74de'
+red = ' A495BB10C5B14B44B5121370F02D74DE'
+green = 'A495BB20C5B14B44B5121370F02D74DE'
+purple = 'A495BB40C5B14B44B5121370F02D74DE'
+orange = 'A495BB50C5B14B44B5121370F02D74DE'
+blue = 'A495BB60C5B14B44B5121370F02D74DE'
+yellow = 'A495BB70C5B14B44B5121370F02D74DE'
+pink = 'A495BB80C5B14B44B5121370F02D74DE'
 
 # The default device for bluetooth scan. If you're using a bluetooth dongle you may have to change this.
 dev_id = 0
@@ -53,7 +60,7 @@ def get_data():
 def main():
     while True:
         data = get_data()
-        r = requests.post('http://beer.jmyers.tech/api/', data)
+        r = requests.post(postUrl, data)
         print(r)
         print('SG: ' + data.tiltSG + ' -- Temp:' + data.temp)
         sleep(updateSecs)
