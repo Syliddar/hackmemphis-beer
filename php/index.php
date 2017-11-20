@@ -1,9 +1,6 @@
 <?php
     require __DIR__ . '/config.php';
     error_reporting(E_ERROR);
-    $dbhost = "localhost";
-    $dbname = "jmyecfmd_tiltdb";
-
         if (!empty($_POST))
         {
             try {
